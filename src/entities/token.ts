@@ -11,7 +11,14 @@ export class Token extends Currency {
   public readonly chainId: ChainId
   public readonly address: string
 
-  public constructor(chainId: ChainId, address: string, decimals: number, symbol?: string, name?: string, logoURI?: string) {
+  public constructor(
+    chainId: ChainId,
+    address: string,
+    decimals: number,
+    symbol?: string,
+    name?: string,
+    logoURI?: string
+  ) {
     super(decimals, symbol, name, logoURI)
     this.chainId = chainId
     this.address = validateAndParseAddress(address).toLowerCase()
@@ -61,8 +68,8 @@ export function currencyEquals(currencyA: Currency, currencyB: Currency): boolea
 }
 
 export const WETH = {
-  [ChainId.GÖRLI]: new Token(
-    ChainId.GÖRLI,
+  [ChainId.TESTNET]: new Token(
+    ChainId.TESTNET,
     '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
     ETHER.decimals,
     ETHER.symbol,
@@ -70,28 +77,6 @@ export const WETH = {
   ),
   [ChainId.MAINNET]: new Token(
     ChainId.MAINNET,
-    '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
-    ETHER.decimals,
-    ETHER.symbol,
-    ETHER.name
-  ),
-  [ChainId.ROPSTEN]: new Token(
-    ChainId.ROPSTEN,
-    '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
-    ETHER.decimals,
-    ETHER.symbol,
-    ETHER.name
-  ),
-  [ChainId.RINKEBY]: new Token(
-    ChainId.RINKEBY,
-    '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
-    ETHER.decimals,
-    ETHER.symbol,
-    ETHER.name
-  ),
-
-  [ChainId.KOVAN]: new Token(
-    ChainId.KOVAN,
     '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
     ETHER.decimals,
     ETHER.symbol,
