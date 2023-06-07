@@ -4,7 +4,7 @@ import { StarknetChainId } from 'starknet/dist/constants'
 // exports for external consumption
 export type BigintIsh = JSBI | bigint | string
 
-export const DEFAULT_CHAIN_ID = 1
+export const DEFAULT_CHAIN_ID = 'MAINNET'
 
 export enum TradeType {
   EXACT_INPUT,
