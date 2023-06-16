@@ -1,7 +1,7 @@
 {
   "name": "@jediswap/sdk",
   "license": "MIT",
-  "version": "2.3.2",
+  "version": "2.3.3",
   "description": "🛠 An SDK for building applications on top of Jediswap.",
   "publishConfig": {
     "access": "public"

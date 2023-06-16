@@ -12,14 +12,16 @@ import {
   FIVE,
   _997,
   _1000,
-  ChainId,
   PAIR_CLASS_HASH,
-  DEFAULT_CHAIN_ID, FEE_TO_SETTER_ADDRESS, PAIR_PROXY_CLASS_HASH
+  DEFAULT_CHAIN_ID,
+  FEE_TO_SETTER_ADDRESS,
+  PAIR_PROXY_CLASS_HASH
 } from '../constants'
 import { sqrt, parseBigintIsh } from '../utils'
 import { InsufficientReservesError, InsufficientInputAmountError } from '../errors'
 import { Token } from './token'
 import { hash } from 'starknet'
+import { StarknetChainId } from 'starknet/dist/constants'
 
 let PAIR_ADDRESS_CACHE: { [token0Address: string]: { [token1Address: string]: string } } = {}
 
@@ -34,7 +36,12 @@ export class Pair {
 
     const salt = pedersen([tokens[0].address, tokens[1].address])
 
-    const contructorCalldata = [PAIR_CLASS_HASH[tokens[0].chainId ?? DEFAULT_CHAIN_ID], tokens[0].address, tokens[1].address, FEE_TO_SETTER_ADDRESS[tokens[0].chainId ?? DEFAULT_CHAIN_ID]]
+    const contructorCalldata = [
+      PAIR_CLASS_HASH[tokens[0].chainId ?? DEFAULT_CHAIN_ID],
+      tokens[0].address,
+      tokens[1].address,
+      FEE_TO_SETTER_ADDRESS[tokens[0].chainId ?? DEFAULT_CHAIN_ID]
+    ]
 
     if (PAIR_ADDRESS_CACHE?.[tokens[0].address]?.[tokens[1].address] === undefined) {
       PAIR_ADDRESS_CACHE = {
@@ -103,7 +110,7 @@ export class Pair {
   /**
    * Returns the chain ID of the tokens in the pair.
    */
-  public get chainId(): ChainId {
+  public get chainId(): StarknetChainId {
     return this.token0.chainId
   }
 
