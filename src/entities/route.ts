@@ -5,7 +5,7 @@ import { Token, WETH } from './token'
 import { Pair } from './pair'
 import { Price } from './fractions/price'
 import { ETHER } from '..'
-import { StarknetChainId } from 'starknet/dist/constants'
+import { starknetChainId } from '../constants'
 
 export class Route {
   public readonly pairs: Pair[]
@@ -47,7 +47,7 @@ export class Route {
     this.output = output ?? path[path.length - 1]
   }
 
-  public get chainId(): StarknetChainId {
+  public get chainId(): starknetChainId {
     return this.pairs[0].chainId
   }
 }

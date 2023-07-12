@@ -2,17 +2,17 @@ import invariant from 'tiny-invariant'
 import { validateAndParseAddress } from 'starknet'
 import { Currency, ETHER } from './currency'
 import { number } from 'starknet'
-import { StarknetChainId } from 'starknet/dist/constants'
+import { StarknetChainId, starknetChainId } from '../constants'
 
 /**
  * Represents an ERC20 token with a unique address and some metadata.
  */
 export class Token extends Currency {
-  public readonly chainId: StarknetChainId
+  public readonly chainId: starknetChainId
   public readonly address: string
 
   public constructor(
-    chainId: StarknetChainId,
+    chainId: starknetChainId,
     address: string,
     decimals: number,
     symbol?: string,
@@ -70,6 +70,13 @@ export function currencyEquals(currencyA: Currency, currencyB: Currency): boolea
 export const WETH = {
   [StarknetChainId.TESTNET]: new Token(
     StarknetChainId.TESTNET,
+    '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
+    ETHER.decimals,
+    ETHER.symbol,
+    ETHER.name
+  ),
+  [StarknetChainId.TESTNET2]: new Token(
+    StarknetChainId.TESTNET2,
     '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
     ETHER.decimals,
     ETHER.symbol,
