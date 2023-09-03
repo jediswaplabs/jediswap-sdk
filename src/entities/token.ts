@@ -2,17 +2,20 @@ import invariant from 'tiny-invariant'
 import { validateAndParseAddress } from 'starknet'
 import { Currency, ETHER } from './currency'
 import { number } from 'starknet'
-import { StarknetChainId } from 'starknet/dist/constants'
+import { constants } from 'starknet'
+
+const { StarknetChainId } = constants
+type chainId = constants.StarknetChainId
 
 /**
  * Represents an ERC20 token with a unique address and some metadata.
  */
 export class Token extends Currency {
-  public readonly chainId: StarknetChainId
+  public readonly chainId: chainId
   public readonly address: string
 
   public constructor(
-    chainId: StarknetChainId,
+    chainId: chainId,
     address: string,
     decimals: number,
     symbol?: string,
