@@ -1,3 +1,4 @@
+import { starknetChainId } from './../constants'
 import { Price } from './fractions/price'
 import { TokenAmount } from './fractions/tokenAmount'
 import invariant from 'tiny-invariant'
@@ -110,7 +111,7 @@ export class Pair {
   /**
    * Returns the chain ID of the tokens in the pair.
    */
-  public get chainId(): constants.StarknetChainId {
+  public get chainId(): starknetChainId {
     return this.token0.chainId
   }
 
