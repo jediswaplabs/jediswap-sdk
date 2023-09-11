@@ -16,7 +16,6 @@
     "ethereum",
     "starknet"
   ],
-  "module": "dist/sdk.esm.js",
   "scripts": {
     "lint": "tsdx lint src test",
     "build": "tsdx build",
