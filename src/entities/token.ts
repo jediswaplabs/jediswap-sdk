@@ -78,6 +78,13 @@ export const WETH = {
     ETHER.symbol,
     ETHER.name
   ),
+  [StarknetChainId.TESTNET2]: new Token(
+    StarknetChainId.TESTNET2,
+    '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
+    ETHER.decimals,
+    ETHER.symbol,
+    ETHER.name
+  ),
   [StarknetChainId.MAINNET]: new Token(
     StarknetChainId.MAINNET,
     '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
