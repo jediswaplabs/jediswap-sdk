@@ -1,3 +1,4 @@
+import { starknetChainId } from './../constants'
 import { Price } from './fractions/price'
 import { TokenAmount } from './fractions/tokenAmount'
 import invariant from 'tiny-invariant'
@@ -21,7 +22,7 @@ import { sqrt, parseBigintIsh } from '../utils'
 import { InsufficientReservesError, InsufficientInputAmountError } from '../errors'
 import { Token } from './token'
 import { hash } from 'starknet'
-import { StarknetChainId } from 'starknet/dist/constants'
+import { constants } from 'starknet'
 
 let PAIR_ADDRESS_CACHE: { [token0Address: string]: { [token1Address: string]: string } } = {}
 
@@ -110,7 +111,7 @@ export class Pair {
   /**
    * Returns the chain ID of the tokens in the pair.
    */
-  public get chainId(): StarknetChainId {
+  public get chainId(): starknetChainId {
     return this.token0.chainId
   }
 
