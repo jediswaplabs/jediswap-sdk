@@ -1,21 +1,16 @@
-import { starknetChainId } from './../constants'
+import { ChainId } from './../constants'
 import invariant from 'tiny-invariant'
-import { validateAndParseAddress } from 'starknet'
+import { num, validateAndParseAddress } from 'starknet'
 import { Currency, ETHER } from './currency'
-import { number } from 'starknet'
-import { constants } from 'starknet'
-
-const { StarknetChainId } = constants
-
 /**
  * Represents an ERC20 token with a unique address and some metadata.
  */
 export class Token extends Currency {
-  public readonly chainId: starknetChainId
+  public readonly chainId: ChainId
   public readonly address: string
 
   public constructor(
-    chainId: starknetChainId,
+    chainId: ChainId,
     address: string,
     decimals: number,
     symbol?: string,
@@ -48,10 +43,10 @@ export class Token extends Currency {
   public sortsBefore(other: Token): boolean {
     invariant(this.chainId === other.chainId, 'CHAIN_IDS')
     invariant(this.address !== other.address, 'ADDRESSES')
-    const thisAddress = number.toBN(this.address)
-    const otherAddress = number.toBN(other.address)
+    const thisAddress = num.toBigInt(this.address)
+    const otherAddress = num.toBigInt(other.address)
 
-    return thisAddress.lt(otherAddress)
+    return thisAddress < otherAddress
   }
 }
 
@@ -70,23 +65,16 @@ export function currencyEquals(currencyA: Currency, currencyB: Currency): boolea
   }
 }
 
-export const WETH: { [chainId in starknetChainId]: Token } = {
-  [StarknetChainId.TESTNET]: new Token(
-    StarknetChainId.TESTNET,
+export const WETH: { [chainId in ChainId]: Token } = {
+  [ChainId.SN_GOERLI]: new Token(
+    ChainId.SN_GOERLI,
     '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
     ETHER.decimals,
     ETHER.symbol,
     ETHER.name
   ),
-  [StarknetChainId.TESTNET2]: new Token(
-    StarknetChainId.TESTNET2,
-    '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
-    ETHER.decimals,
-    ETHER.symbol,
-    ETHER.name
-  ),
-  [StarknetChainId.MAINNET]: new Token(
-    StarknetChainId.MAINNET,
+  [ChainId.SN_MAIN]: new Token(
+    ChainId.SN_MAIN,
     '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
     ETHER.decimals,
     ETHER.symbol,

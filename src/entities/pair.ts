@@ -1,4 +1,4 @@
-import { starknetChainId } from './../constants'
+import { ChainId } from './../constants'
 import { Price } from './fractions/price'
 import { TokenAmount } from './fractions/tokenAmount'
 import invariant from 'tiny-invariant'
@@ -21,7 +21,7 @@ import {
 import { sqrt, parseBigintIsh } from '../utils'
 import { InsufficientReservesError, InsufficientInputAmountError } from '../errors'
 import { Token } from './token'
-import { hash } from 'starknet'
+import { ec, hash } from 'starknet'
 
 let PAIR_ADDRESS_CACHE: { [token0Address: string]: { [token1Address: string]: string } } = {}
 
@@ -32,9 +32,9 @@ export class Pair {
   public static getAddress(tokenA: Token, tokenB: Token): string {
     const tokens = tokenA.sortsBefore(tokenB) ? [tokenA, tokenB] : [tokenB, tokenA] // does safety checks
 
-    const { calculateContractAddressFromHash, pedersen } = hash
+    const { calculateContractAddressFromHash } = hash
 
-    const salt = pedersen([tokens[0].address, tokens[1].address])
+    const salt = ec.starkCurve.pedersen(tokens[0].address, tokens[1].address)
 
     const contructorCalldata = [
       PAIR_CLASS_HASH[tokens[0].chainId ?? DEFAULT_CHAIN_ID],
@@ -110,7 +110,7 @@ export class Pair {
   /**
    * Returns the chain ID of the tokens in the pair.
    */
-  public get chainId(): starknetChainId {
+  public get chainId(): ChainId {
     return this.token0.chainId
   }
 

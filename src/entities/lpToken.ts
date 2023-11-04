@@ -1,11 +1,11 @@
-import { starknetChainId } from './../constants'
+import { ChainId } from './../constants'
 import { Token } from './token'
 
 export class LPToken extends Token {
   token0: Token
   token1: Token
 
-  constructor(chainId: starknetChainId, token0: Token, token1: Token, address: string) {
+  constructor(chainId: ChainId, token0: Token, token1: Token, address: string) {
     const tokens = token0.sortsBefore(token1) ? [token0, token1] : [token1, token0]
 
     const lpSymbol = `${tokens[0].symbol}-${tokens[1].symbol}`
